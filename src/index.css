@@ -1,0 +1,13 @@
+.forecast {
+  display: flex;
+
+  gap: 20px;
+}
+
+.forecast-day {
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 200px;
+  background-color: #f9f9f9;
+}
+
