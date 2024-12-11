@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
+
   const initialCities = [
     { name: "New York", lat: 40.7128, lon: -74.006 },
     { name: "Tokyo", lat: 35.6895, lon: 139.6917 },
@@ -14,10 +15,10 @@ function App() {
     { name: "Tirana", lat: 41.3289, lon: 19.8178 },
   ];
 
-  const [currentWeather, setCurrentWeather] = useState(null);
-  const [dailyWeather, setDailyWeather] = useState(null);
   const [cities, setCities] = useState(initialCities);
   const [selectedCity, setSelectedCity] = useState("");
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [dailyWeather, setDailyWeather] = useState(null);
   const [error, setError] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newLat, setNewLat] = useState("");
@@ -30,26 +31,26 @@ function App() {
     3: "Overcast",
     45: "Fog",
     48: "Depositing rime fog",
-    51: "Drizzle: Light intensity",
-    53: "Drizzle: Moderate intensity",
-    55: "Drizzle: Dense intensity",
-    56: "Freezing drizzle: Light intensity",
-    57: "Freezing drizzle: Dense intensity",
-    61: "Rain: Slight intensity",
-    63: "Rain: Moderate intensity",
-    65: "Rain: Heavy intensity",
-    66: "Freezing rain: Light intensity",
-    67: "Freezing rain: Heavy intensity",
-    71: "Snow fall: Slight intensity",
-    73: "Snow fall: Moderate intensity",
-    75: "Snow fall: Heavy intensity",
+    51: "Light Drizzle",
+    53: "Moderate Drizzle",
+    55: "Dense Drizzle",
+    56: "Light Freezing drizzle",
+    57: "Freezing drizzle",
+    61: "Slight Rain",
+    63: "Moderate Rain",
+    65: "Heavy Rain",
+    66: "Light Freezing rain",
+    67: "Heavy Freezing rain",
+    71: "Slight Snow fall",
+    73: "Moderate Snow fall",
+    75: "Heavy Snow fall",
     77: "Snow grains",
-    80: "Rain showers: Slight intensity",
-    81: "Rain showers: Moderate intensity",
-    82: "Rain showers: Violent intensity",
-    85: "Snow showers: Slight intensity",
-    86: "Snow showers: Heavy intensity",
-    95: "Thunderstorm: Slight or moderate",
+    80: "Slight Rain showers",
+    81: "Moderate Rain showers",
+    82: "Strong Rain showers",
+    85: "Slight Snow showers",
+    86: "Heavy Snow showers",
+    95: "Moderate Thunderstorm",
     96: "Thunderstorm with slight hail",
     99: "Thunderstorm with heavy hail",
   };
@@ -84,7 +85,6 @@ function App() {
     96: "⛈️",
     99: "⛈️",
   };
-
   useEffect(() => {
     if (!selectedCity) return;
 
@@ -146,7 +146,7 @@ function App() {
 
           <h2>Weather Forecast</h2>
           <div className="forecast">
-            {dailyWeather.temperature_2m_max.slice(0, 5).map((maxTemp, index) => (
+            {dailyWeather.temperature_2m_max.slice(0, 4).map((maxTemp, index) => (
               <div key={index} className="forecast-day">
                 <h3>Day {index + 1}</h3>
                 <p>Condition: {weatherConditions[dailyWeather.weathercode[index]] || "Unknown"}{" "}
