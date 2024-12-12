@@ -90,7 +90,7 @@ function App() {
 
     const fetchWeatherData = async () => {
       const city = cities.find((city) => city.name === selectedCity);
-      const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum,windspeed_10m_max,weathercode&current_weather=true&timezone=America/New_York`;
+      const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum,windspeed_10m_max,weathercode&current_weather=true&timezone=Europe/Berlin`;
 
       try {
         const response = await axios.get(apiUrl);
@@ -149,12 +149,12 @@ function App() {
             {dailyWeather.temperature_2m_max.slice(0, 4).map((maxTemp, index) => (
               <div key={index} className="forecast-day">
                 <h3>Day {index + 1}</h3>
-                <p>Condition: {weatherConditions[dailyWeather.weathercode[index]] || "Unknown"}{" "}
+                <p>{weatherConditions[dailyWeather.weathercode[index]] || "Unknown"}{" "}
                   <span>{iconMapping[dailyWeather.weathercode[index]]}</span>
                 </p>
-                <p>Temperatures: {dailyWeather.temperature_2m_min[index]}°C - {maxTemp}°C</p>
-                <p>Feels Like: {dailyWeather.apparent_temperature_min[index]}°C - {dailyWeather.apparent_temperature_max[index]}°C</p>
-                <p>Precipitation: {dailyWeather.precipitation_sum[index]} mm</p>
+                <p>Temperatures going from {dailyWeather.temperature_2m_min[index]}°C up to {maxTemp}°C</p>
+                <p>Feels like {dailyWeather.apparent_temperature_min[index]}°C - {dailyWeather.apparent_temperature_max[index]}°C</p>
+                <p>Precipitation chance: {dailyWeather.precipitation_sum[index]} mm</p>
                 <p>Max Wind Speed: {dailyWeather.windspeed_10m_max[index]} km/h</p>
               </div>
             ))}

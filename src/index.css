@@ -10,11 +10,9 @@ body, h1, h2, h3, p, input, button, select {
 body {
   background: linear-gradient(to right, #83a4d4, #b6fbff);
   color: #333;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
   padding: 20px;
 }
 
