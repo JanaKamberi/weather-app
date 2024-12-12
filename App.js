@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import therm from "./images/therm.png";
+import chance from "./images/chance.png";
+import feelslike from "./images/feels_like.png";
+import windy from "./images/windy.png";
 
 function App() {
 
@@ -144,24 +148,28 @@ function App() {
         <div className="app-divider">
 
           <div className="current-weather">
+           
+              <h2 className="current-temp">{iconMapping[currentWeather.weathercode]} {weatherConditions[currentWeather.weathercode]}</h2>
+
             <div className="current-weather-info">
-              <p>Condition: {weatherConditions[currentWeather.weathercode]} {iconMapping[currentWeather.weathercode]}</p>
+              <img src={therm}/><p>Temperature: {currentWeather.temperature}°C</p>
             </div>
             <div className="current-weather-info">
-              <p>Current Temperature: {currentWeather.temperature}°C</p>
+              <p><img src={windy}/>Wind Speed: {currentWeather.windspeed} km/h</p>
             </div>
-            <br/>
+            <div className="current-weather-info"> 
+              <p><img src={feelslike}/>Feels like {((dailyWeather.apparent_temperature_min[0] + dailyWeather.apparent_temperature_max[0]))/2}°C</p>
+            </div>
             <div className="current-weather-info">
-              <p>Wind Speed: {currentWeather.windspeed} km/h</p>
+              <p><img src={chance}/>Precipitation {dailyWeather.precipitation_sum[0]}mm</p>
             </div>
           </div>
-
           <div className="div-forecast">
 
             <div className="forecast">
               {dailyWeather.temperature_2m_max.slice(0, 4).map((maxTemp, index) => (
                 <div key={index} className="forecast-day">
-                  <h3>Day {index + 1}</h3>
+                  <h3>Day {index + 2}</h3>
                   <p>{weatherConditions[dailyWeather.weathercode[index]] || "Unknown"}{" "}
                     <span>{iconMapping[dailyWeather.weathercode[index]]}</span>
                   </p>

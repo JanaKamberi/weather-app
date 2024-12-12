@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
 body {
   background-color: #1E1E2E; 
   color: white; 
-  font-family: 'Aria;', sans-serif;
+  font-family: 'Roboto Mono';
   box-sizing: border-box;
 }
 
 input, button, select {
   box-sizing: border-box;
+  font-family: 'Roboto Mono';
 }
 
 h1 {
@@ -17,7 +20,7 @@ h1 {
 p {
   text-align: center;
   color: white;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 select{  
@@ -31,6 +34,14 @@ select{
   border: 1px solid #4A4A5D;
   border-radius: 8px;
   font-size: 18px;
+}
+
+img{    
+  width: 40px;
+  height: 40px;
+  /* top: 50%; */
+  /* left: 50%; */
+  margin: 0px 11px -15px 0px;
 }
 
 input {
@@ -93,8 +104,13 @@ button:hover {
 }
 
 .current-weather{
+  max-width: 600px;
   order: 0;
   align-self: auto;
+}
+
+.current-temp{
+  font-size: 60px;
 }
 
 /* Forecast Grid */
