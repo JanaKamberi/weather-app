@@ -7,7 +7,7 @@ Aplikacioni i motit eshte nje aplikacion i bazuar ne React qe ofron te dhena te 
  - Perfshin nje liste per te zgjedhur nje qytet.
  - Lejon perdoruesit te shtojne qytete te reja duke futur nje emer, dhe kordinatat e qyetit.
  - Ikonat dhe pershkrimet e lexueshme e bejne te lehte te kuptosh kushtet e motit.
-
+---
 #### **Si funksionon**
 **Burimi i te dhenave**:
  - Te dhenat e motit merren duke perdorur [Open-Meteo API](https://open-meteo.com/).
@@ -24,7 +24,6 @@ Aplikacioni i motit eshte nje aplikacion i bazuar ne React qe ofron te dhena te 
  - Ikonat dhe pershkrimet e kushteve hartohen bazuar ne kodet e motit te API-se.
 
 ---
-
 #### **Pika kryesore te kodit**
 
 - Te dhenat e motit merren duke perdorur "axios" me URL te ndertuara ne menyre dinamike:
