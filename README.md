@@ -2,28 +2,24 @@
 #### **Permbledhje**
 Aplikacioni i motit eshte nje aplikacion i bazuar ne React qe ofron te dhena te motit ne kohe reale dhe nje parashikim 4-ditor te motit per nje sere qytetesh. Perdoruesit mund te zgjedhin nje qytet nga nje liste e paracaktuar, te shikojne kushtet aktuale te motit dhe te shtojne qytete te personalizuara duke specifikuar gjeresine dhe gjatesine e tyre. Aplikacioni merr te dhenat e motit nga Open-Meteo API dhe i shfaq ato ne nje format miqesor per perdoruesit, te kompletuar me ikona qe perfaqesojne kushte te ndryshme te motit.
 
-- ** Informacioni aktual i motit **:
  - Shfaq temperaturen aktuale, gjendjen e motit dhe shpejtesine e eres per qytetin e zgjedhur.
-- **Parashikimi i motit 4-ditor **:
- - Tregon temperaturat maksimale dhe minimale ditore, temperaturat "ndjehen si", reshjet dhe shpejtesine e eres per 4 ditet e ardhshme.
-- **Menaxhimi i qytetit**:
- - Perfshin nje liste renese per te zgjedhur nje qytet.
- - Lejon perdoruesit te shtojne qytete te reja duke futur nje emer, gjeresi dhe gjatesi.
-- **Dizajn miqesor per perdoruesit **:
- - Ikonat dhe pershkrimet e lexueshme nga njeriu e bejne te lehte te kuptosh kushtet e motit.
+ - Tregon temperaturat maksimale dhe minimale ditore, temperaturat "Feels like", reshjet dhe shpejtesine e eres per 4 ditet e ardhshme.
+ - Perfshin nje liste per te zgjedhur nje qytet.
+ - Lejon perdoruesit te shtojne qytete te reja duke futur nje emer, dhe kordinatat e qyetit.
+ - Ikonat dhe pershkrimet e lexueshme e bejne te lehte te kuptosh kushtet e motit.
 
 #### **Si funksionon**
-1. **Burimi i te dhenave **:
+**Burimi i te dhenave**:
  - Te dhenat e motit merren duke perdorur [Open-Meteo API](https://open-meteo.com/).
  - API ofron te dhena aktuale te motit dhe parashikimeve ditore bazuar ne gjeresine dhe gjatesine gjeografike.
 
-2. **Perberesit funksionale reagojne**:
+**Perberesit funksionale reagojne**:
  - **Menaxhimi i Shtetit**:
  - `useState` perdoret per te gjurmuar qytetin e zgjedhur, te dhenat e motit, mesazhet e gabimit dhe hyrjet e perdoruesve per shtimin e qyteteve te reja.
  - **Efekt Hook**:
  - "useEffect" aktivizohet kur qyteti i zgjedhur ndryshon, duke marre te dhena te perditesuara te motit.
 
-3. **Perkthimi dinamik **:
+**Perkthimi dinamik**:
  - Kushtet e motit dhe parashikimet jepen ne menyre dinamike duke perdorur JSX te React.
  - Ikonat dhe pershkrimet e kushteve hartohen bazuar ne kodet e motit te API-se.
 
