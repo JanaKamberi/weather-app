@@ -1,70 +1,27 @@
-# Getting Started with Create React App
+# Weather App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Ky eshte nje aplikacion i parashikimit te motit i bazuar ne React qe shfaq parashikimin e motit per nje qytet te zgjedhur. Aplikacioni tregon ndyshimin e temperaturave, kushtet e motit (diell, me re, me shi) dhe te dhena te tjera.
 
-## Available Scripts
+## Karakteristikat
 
-In the project directory, you can run:
+- **Parashikimi i motit**: Shfaq parashikimet ditore te motit (temperatura maksimale dhe minimale, shpejtesia e eres, reshjet, etj.).
+- **Add a new city**: Perdoruesit mund te shtojne nje qytet te ri se bashku me gjeresine dhe gjatesine e tij per te pare parashikimin e motit per ate qytet.
+- **UI Interactive**: Perdoruesit mund te zgjedhin nje qytet dhe aplikacioni merr dhe shfaq te dhenat perkatese te motit.
 
-### `npm start`
+## Perdorimi i aplikacionit
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Ne applikacion mund te shtohet nje qyet i ri. Shkruhet emrin e qytetit, Latitude dhe Longitude ne fushat perkatese te hyrjes.
+Kliko "Add city" per te shfaqur parashikimin e motit per qytetin e ri.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Parashikimi i motit do te tregoje detajet e meposhtme per çdo dite:
 
-### `npm test`
+- Dita (Sot, Neser, ose diten e javes per ditet e ardhshme)
+- Gjendja e motit (p.sh., "Me diell", "Me re", "Me shi")
+- Varia e temperatures (temperatura minimale dhe maksimale per diten)
+- Ndjehet si temperatura (min dhe maksimale)
+- Mundesia e reshjeve
+- Shpejtesia maksimale e eres
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Struktura e kodit
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Komponenti kryesor qe trajton shfaqjen e te dhenave te motit, shtimin e qyteteve.Te dhenat e motit merren nga te dhena reale nga nje API OpenWeatherMap. Me ane te nje linku ajo dorzon detajet e nevojshme per motin.
