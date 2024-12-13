@@ -1,120 +1,66 @@
-/* General Reset */
-body, h1, h2, h3, p, input, button, select {
-  margin: 0;
-  padding: 0;
-  font-family: 'Aria;', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+body {
+  background-color: #1E1E2E; 
+  color: white; 
+  font-family: 'Roboto Mono';
   box-sizing: border-box;
 }
 
-/* Body Styling */
-body {
-  background: linear-gradient(to right, #83a4d4, #b6fbff);
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+input, button, select {
+  box-sizing: border-box;
+  font-family: 'Roboto Mono';
 }
 
-/* App Container */
-.App {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100%;
-
-}
-
-/* Heading Styles */
 h1 {
-  font-size: 2rem;
-  color: #2c3e50;
   text-align: center;
   margin-bottom: 20px;
 }
 
-h2 {
-  font-size: 1.5rem;
-  color: #34495e;
-  margin-bottom: 10px;
-}
-
-h3 {
-  font-size: 1.2rem;
-  color: #34495e;
-  margin-bottom: 5px;
-}
-
-/* Dropdown Menu */
-select {
-  width: 100%;
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #f8f9fa;
-  margin-bottom: 20px;
-  cursor: pointer;
-}
-
-/* Error Message */
 p {
-
-  margin-bottom: 15px;
+  color: white;
+  font-size: 15px;
 }
 
-/* Weather Details */
-.forecast {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
+select{  
+  width: 100%;
+  max-width: 300px;
+  padding: 10px;
+  margin: 20px;
+  display: inline;
+  background-color: #2C2C3B;
+  color: white;
+  border: 1px solid #4A4A5D;
+  border-radius: 8px;
+  font-size: 18px;
 }
 
-.forecast-day {
-  background: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.forecast-day p {
-  color: #2c3e50;
-  font-size: 0.9rem;
-}
-
-.forecast-day h3 {
-  margin-bottom: 10px;
-  font-size: 1rem;
-}
-
-/* Add City Form */
-h3 {
-  margin-top: 20px;
+img{    
+  margin-right: 9px;
+  width: 53px;
+  height: auto;
 }
 
 input {
-  width: calc(33.33% - 10px);
+  /*width: calc(33.33% - 10px);*/
   padding: 10px;
   margin: 5px;
-  font-size: 1rem;
+  font-size: 16px;
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #ffffff;
 }
 
 button {
-  width: 100%;
+  /*width: 100%;*/
   padding: 10px;
   background: #3498db;
   border: none;
   border-radius: 8px;
   color: #ffffff;
-  font-size: 1rem;
+  font-size: 16px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.2s ease;
 }
 
 button:hover {
@@ -131,3 +77,92 @@ button:hover {
     width: calc(100% - 10px);
   }
 }
+
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-divider{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*Current Weather*/
+.current-weather-info{
+  display: inline-flex;
+  margin: 11px;
+  padding: 20px;
+  background-color: #292942;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px #0c0c14;
+}
+
+.current-weather{
+  max-width: 520px;
+  order: 0;
+  align-self: auto;
+}
+
+.current-temp{
+  font-size: 60px;
+}
+
+.icon-square{
+  display: flex;
+}
+
+
+.specific-weather{
+  color: #d1d1d1;
+  margin-top: 0px;
+}
+
+.API-result{
+  margin-top: -10px;
+  margin-bottom: 0px;
+  font-size: 18px;
+}
+
+/* Forecast Grid */
+.forecast {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+/*https://angrytools.com/css-flex/*/
+.div-forecast{
+   /* flex:1 1 auto; */
+   flex-grow:1;
+   flex-shrink:1;
+   align-self:stretch;
+}
+
+.forecast-day {
+  padding: 20px;
+  background-color: #292942;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 8px #0c0c14;
+}
+
+.forecast-day h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.forecast-day p {
+  font-size: 16px;
+  text-wrap-style: balance;
+}
+
+p.main-weather-info{
+  font-size: 20px;
+  font-style: italic;
+}
+
