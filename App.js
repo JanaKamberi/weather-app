@@ -6,7 +6,6 @@ import feelslike from "./images/feels_like.png";
 import windy from "./images/windy.png";
 
 function App() {
-
   const initialCities = [
     { name: "New York", lat: 40.7128, lon: -74.006 },
     { name: "Tokyo", lat: 35.6895, lon: 139.6917 },
@@ -115,7 +114,11 @@ function App() {
 
   const handleAddCity = () => {
     if (newCity && newLat && newLon) {
-      const newCityObj = { name: newCity, lat: parseFloat(newLat), lon: parseFloat(newLon) };
+      const newCityObj = {
+        name: newCity,
+        lat: parseFloat(newLat),
+        lon: parseFloat(newLon),
+      };
       setCities([...cities, newCityObj]);
       setNewCity("");
       setNewLat("");
@@ -127,11 +130,11 @@ function App() {
 
   return (
     <div className="App">
-
       <h1>Weather App</h1>
 
       <div>
-        <h2>Current Weather for
+        <h2>
+          Current Weather for
           <select value={selectedCity} onChange={handleCityChange}>
             <option value="">Select a city</option>
             {cities.map((city) => (
@@ -139,51 +142,100 @@ function App() {
                 {city.name}
               </option>
             ))}
-          </select></h2>
+          </select>
+        </h2>
       </div>
 
       {error && <p>{error}</p>}
       {currentWeather && dailyWeather ? (
-
         <div className="app-divider">
-
           <div className="current-weather">
-           
-              <h2 className="current-temp">{iconMapping[currentWeather.weathercode]} {weatherConditions[currentWeather.weathercode]}</h2>
+            <h2 className="current-temp">
+              {iconMapping[currentWeather.weathercode]}{" "}
+              {weatherConditions[currentWeather.weathercode]}
+            </h2>
 
             <div className="current-weather-info">
-              <img src={therm}/><p>Temperature: {currentWeather.temperature}°C</p>
+              <div className="icon-square">
+                <img src={therm} />
+              </div>
+              <div>
+                <p className="specific-weather">Temperature</p>
+                <p className="API-result">{currentWeather.temperature}°C</p>
+              </div>
             </div>
+
             <div className="current-weather-info">
-              <p><img src={windy}/>Wind Speed: {currentWeather.windspeed} km/h</p>
+              <div className="icon-square">
+                <img src={windy} />
+              </div>
+              <div>
+                <p className="specific-weather">Wind Speed</p>
+                <p className="API-result">{currentWeather.windspeed} km/h</p>
+              </div>
             </div>
-            <div className="current-weather-info"> 
-              <p><img src={feelslike}/>Feels like {((dailyWeather.apparent_temperature_min[0] + dailyWeather.apparent_temperature_max[0]))/2}°C</p>
-            </div>
+
             <div className="current-weather-info">
-              <p><img src={chance}/>Precipitation {dailyWeather.precipitation_sum[0]}mm</p>
+              <div className="icon-square">
+                <img src={feelslike} />
+              </div>
+              <div>
+                <p className="specific-weather"> Feels like</p>
+                <p className="API-result">
+                  {Math.round(
+                    dailyWeather.apparent_temperature_min[0] +
+                      dailyWeather.apparent_temperature_max[0]
+                  ) / 2}
+                  °C
+                </p>
+              </div>
+            </div>
+
+            <div className="current-weather-info">
+              <div className="icon-square">
+                <img src={chance} />
+              </div>
+              <div>
+                <p className="specific-weather"> Precipitation</p>
+                <p className="API-result">
+                  {dailyWeather.precipitation_sum[0]} m
+                </p>
+              </div>
             </div>
           </div>
           <div className="div-forecast">
-
             <div className="forecast">
-              {dailyWeather.temperature_2m_max.slice(0, 4).map((maxTemp, index) => (
-                <div key={index} className="forecast-day">
-                  <h3>Day {index + 2}</h3>
-                  <p>{weatherConditions[dailyWeather.weathercode[index]] || "Unknown"}{" "}
-                    <span>{iconMapping[dailyWeather.weathercode[index]]}</span>
-                  </p>
-                  <p>Temperatures going from {dailyWeather.temperature_2m_min[index]}°C up to {maxTemp}°C</p>
-                  <p>Feels like {dailyWeather.apparent_temperature_min[index]}°C - {dailyWeather.apparent_temperature_max[index]}°C</p>
-                  <p>Precipitation chance: {dailyWeather.precipitation_sum[index]} mm</p>
-                  <p>Max Wind Speed: {dailyWeather.windspeed_10m_max[index]} km/h</p>
-                </div>
-              ))}
+              {dailyWeather.temperature_2m_max
+                .slice(0, 4)
+                .map((maxTemp, index) => (
+                  <div key={index} className="forecast-day">
+                    <h3>Day {index + 2}</h3>
+                    <p>
+                      {iconMapping[dailyWeather.weathercode[index]]}
+                      {weatherConditions[dailyWeather.weathercode[index]]}
+                    </p>
+                    <p>
+                      Temperatures going from{" "}
+                      {dailyWeather.temperature_2m_min[index]}°C up to {maxTemp}
+                      °C
+                    </p>
+                    <p>
+                      Feels like {dailyWeather.apparent_temperature_min[index]}
+                      °C - {dailyWeather.apparent_temperature_max[index]}°C
+                    </p>
+                    <p>
+                      Precipitation chance:{" "}
+                      {dailyWeather.precipitation_sum[index]} mm
+                    </p>
+                    <p>
+                      Max Wind Speed: {dailyWeather.windspeed_10m_max[index]}{" "}
+                      km/h
+                    </p>
+                  </div>
+                ))}
             </div>
           </div>
-
         </div>
-
       ) : (
         <p>Select a city to see the weather forecast.</p>
       )}

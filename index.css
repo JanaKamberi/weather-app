@@ -37,11 +37,9 @@ select{
 }
 
 img{    
-  width: 40px;
-  height: 40px;
-  /* top: 50%; */
-  /* left: 50%; */
-  margin: 0px 11px -15px 0px;
+  margin-right: 9px;
+  width: 53px;
+  height: auto;
 }
 
 input {
@@ -94,7 +92,7 @@ button:hover {
 
 /*Current Weather*/
 .current-weather-info{
-  display: inline-grid;
+  display: inline-flex;
   margin: 11px;
   padding: 20px;
   background-color: #292942;
@@ -104,13 +102,32 @@ button:hover {
 }
 
 .current-weather{
-  max-width: 600px;
+  max-width: 520px;
   order: 0;
   align-self: auto;
 }
 
 .current-temp{
   font-size: 60px;
+}
+
+.icon-square{
+  display: flex;
+}
+
+.info-square{
+
+}
+
+.specific-weather{
+  color: #d1d1d1;
+  margin-top: 0px;
+}
+
+.API-result{
+  margin-top: -10px;
+  margin-bottom: 0px;
+  font-size: 18px;
 }
 
 /* Forecast Grid */
