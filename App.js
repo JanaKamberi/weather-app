@@ -88,6 +88,7 @@ function App() {
     96: "⛈️",
     99: "⛈️",
   };
+
   useEffect(() => {
     if (!selectedCity) return;
 
@@ -127,6 +128,9 @@ function App() {
       setError("Please fill in all fields to add a new city.");
     }
   };
+
+  const today = new Date();
+  const todayDate = today.getDate();
 
   return (
     <div className="App">
@@ -207,32 +211,46 @@ function App() {
             <div className="forecast">
               {dailyWeather.temperature_2m_max
                 .slice(0, 4)
-                .map((maxTemp, index) => (
-                  <div key={index} className="forecast-day">
-                    <h3>Day {index + 2}</h3>
-                    <p>
-                      {iconMapping[dailyWeather.weathercode[index]]}
-                      {weatherConditions[dailyWeather.weathercode[index]]}
-                    </p>
-                    <p>
-                      Temperatures going from{" "}
-                      {dailyWeather.temperature_2m_min[index]}°C up to {maxTemp}
-                      °C
-                    </p>
-                    <p>
-                      Feels like {dailyWeather.apparent_temperature_min[index]}
-                      °C - {dailyWeather.apparent_temperature_max[index]}°C
-                    </p>
-                    <p>
-                      Precipitation chance:{" "}
-                      {dailyWeather.precipitation_sum[index]} mm
-                    </p>
-                    <p>
-                      Max Wind Speed: {dailyWeather.windspeed_10m_max[index]}{" "}
-                      km/h
-                    </p>
-                  </div>
-                ))}
+                .map((maxTemp, index) => {
+                  const forecastDate = new Date(today);
+                  forecastDate.setDate(todayDate + index);
+
+                  const dayLabel =
+                    index === 0
+                      ? "Today"
+                      : index === 1
+                      ? "Tomorrow"
+                      : forecastDate.toLocaleDateString("en-US", {
+                          weekday: "long",
+                        }); // Other days as weekday
+
+                  return (
+                    <div key={index} className="forecast-day">
+                      <h3>{dayLabel}</h3>
+                      <p className="main-weather-info">
+                        {iconMapping[dailyWeather.weathercode[index]]}{" "}
+                        {weatherConditions[dailyWeather.weathercode[index]]}
+                      </p>
+                      <p>
+                        Temperatures going{" "}
+                        {dailyWeather.temperature_2m_min[index]}°C up to{" "}
+                        {maxTemp}°C
+                      </p>
+                      <p>
+                        Feels like{" "}
+                        {dailyWeather.apparent_temperature_min[index]}°C -{" "}
+                        {dailyWeather.apparent_temperature_max[index]}°C
+                      </p>
+                      <p>
+                        Precipitation {dailyWeather.precipitation_sum[index]} mm
+                      </p>
+                      <p>
+                        Max Wind Speed {dailyWeather.windspeed_10m_max[index]}
+                        km/h
+                      </p>
+                    </div>
+                  );
+                })}
             </div>
           </div>
         </div>
