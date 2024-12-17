@@ -11,6 +11,7 @@ import windy from "./images/windy.png";
 
 function App() {
   const initialCities = [
+    { name: "Tirana", lat: 41.3289, lon: 19.8178 },
     { name: "New York", lat: 40.7128, lon: -74.006 },
     { name: "Tokyo", lat: 35.6895, lon: 139.6917 },
     { name: "London", lat: 51.5074, lon: -0.1278 },
@@ -19,7 +20,6 @@ function App() {
     { name: "Berlin", lat: 52.52, lon: 13.405 },
     { name: "Los Angeles", lat: 34.0522, lon: -118.2437 },
     { name: "Moscow", lat: 55.7558, lon: 37.6173 },
-    { name: "Tirana", lat: 41.3289, lon: 19.8178 },
   ];
 
   const [cities, setCities] = useState(initialCities);
@@ -56,19 +56,39 @@ function App() {
   };
 
   const handleAddCity = () => {
-    if (newCity && newLat && newLon) {
-      const newCityObj = {
-        name: newCity,
-        lat: parseFloat(newLat),
-        lon: parseFloat(newLon),
-      };
-      setCities([...cities, newCityObj]);
-      setNewCity("");
-      setNewLat("");
-      setNewLon("");
-    } else {
-      setError("Please fill in all fields to add a new city.");
+    // Convert inputs to numbers
+    const lat = parseFloat(newLat);
+    const lon = parseFloat(newLon);
+
+    // Check for empty fields
+    if (!newCity || isNaN(lat) || isNaN(lon)) {
+      setError("Please provide valid city name, latitude, and longitude.");
+      return;
     }
+
+    // Check latitude and longitude ranges
+    if (lat < -90 || lat > 90) {
+      setError("Latitude must be between -90 and 90 degrees.");
+      return;
+    }
+
+    if (lon < -180 || lon > 180) {
+      setError("Longitude must be between -180 and 180 degrees.");
+      return;
+    }
+
+    // If all checks pass, add the new city
+    const newCityObj = {
+      name: newCity,
+      lat,
+      lon,
+    };
+
+    setCities([...cities, newCityObj]);
+    setNewCity("");
+    setNewLat("");
+    setNewLon("");
+    setError(""); // Clear any previous errors
   };
 
   return (
@@ -88,7 +108,6 @@ function App() {
         </h2>
       </div>
 
-      {error && <p>{error}</p>}
       {currentWeather && dailyWeather ? (
         <div className="app-divider">
           <div className="current-weather">
@@ -176,6 +195,7 @@ function App() {
           onChange={(e) => setNewLon(e.target.value)}
         />
         <button onClick={handleAddCity}>Add City</button>
+        <p>{error && <p>{error}</p>}</p>
       </div>
     </div>
   );
