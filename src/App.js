@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import weatherMapping from "./components/weatherMapping.js"; //added new component for maping the icons and weather conditions
+import Forecast from "./components/forecast.js";
 
 import therm from "./images/therm.png";
 import chance from "./images/chance.png";
@@ -70,39 +71,9 @@ function App() {
     }
   };
 
-  const today = new Date();
-  const todayDate = today.getDate();
-
-  // Preprocess forecast data to calculate day labels and weather info
-  const forecastData = dailyWeather?.temperature_2m_max
-    .slice(0, 4)
-    .map((maxTemp, index) => {
-      const forecastDate = new Date(today);
-      forecastDate.setDate(todayDate + index);
-
-      const dayLabel =
-        index === 0
-          ? "Today"
-          : index === 1
-          ? "Tomorrow"
-          : forecastDate.toLocaleDateString("en-US", { weekday: "long" }); // Other days as weekday
-
-      return {
-        dayLabel,
-        maxTemp,
-        minTemp: dailyWeather.temperature_2m_min[index],
-        apparentMin: dailyWeather.apparent_temperature_min[index],
-        apparentMax: dailyWeather.apparent_temperature_max[index],
-        precipitation: dailyWeather.precipitation_sum[index],
-        windSpeed: dailyWeather.windspeed_10m_max[index],
-        weatherCode: dailyWeather.weathercode[index],
-      };
-    });
-
   return (
     <div className="App">
       <h1>Weather App</h1>
-
       <div>
         <h2>
           Current Weather for
@@ -174,27 +145,11 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="div-forecast">
-            <div className="forecast">
-              {forecastData.map((data, index) => (
-                <div key={index} className="forecast-day">
-                  <h3>{data.dayLabel}</h3>
-                  <p className="main-weather-info">
-                    {weatherMapping[data.weatherCode]?.icon}{" "}
-                    {weatherMapping[data.weatherCode]?.condition}
-                  </p>
-                  <p>
-                    Temperatures going {data.minTemp}°C up to {data.maxTemp}°C
-                  </p>
-                  <p>
-                    Feels like {data.apparentMin}°C - {data.apparentMax}°C
-                  </p>
-                  <p>Precipitation {data.precipitation} mm</p>
-                  <p>Max Wind Speed {data.windSpeed} km/h</p>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Using the Forecast Component */}
+          <Forecast
+            dailyWeather={dailyWeather}
+            weatherMapping={weatherMapping}
+          />
         </div>
       ) : (
         <p>Select a city to see the weather forecast.</p>
