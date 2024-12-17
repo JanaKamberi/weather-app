@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import weatherMapping from "./components/weatherMapping.js"; //added new component for maping the icons and weather conditions
+import weatherMapping from "./components/weatherMapping.js";
 import Forecast from "./components/forecast.js";
 
 import therm from "./images/therm.png";
@@ -27,6 +27,7 @@ function App() {
   const [currentWeather, setCurrentWeather] = useState(null);
   const [dailyWeather, setDailyWeather] = useState(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState("");
   const [newCity, setNewCity] = useState("");
   const [newLat, setNewLat] = useState("");
   const [newLon, setNewLon] = useState("");
@@ -34,17 +35,24 @@ function App() {
   useEffect(() => {
     if (!selectedCity) return;
 
+    //https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max,wind_speed_10m_max
+
     const fetchWeatherData = async () => {
       const city = cities.find((city) => city.name === selectedCity);
       const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${city.lat}&longitude=${city.lon}&daily=temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum,windspeed_10m_max,weathercode&current_weather=true&timezone=Europe/Berlin`;
 
+      setLoading(true);
       try {
-        const response = await axios.get(apiUrl);
+        const response = await axios.get(apiUrl, {
+          timeout: 10000,
+        });
         setCurrentWeather(response.data.current_weather);
         setDailyWeather(response.data.daily);
         setError("");
       } catch (error) {
         setError("Unable to fetch weather data.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -108,7 +116,12 @@ function App() {
         </h2>
       </div>
 
-      {currentWeather && dailyWeather ? (
+      {/*Loaading Screen*/}
+      {loading ? (
+        <div className="loading-screen">
+          <h2>Loading...</h2>
+        </div>
+      ) : currentWeather && dailyWeather ? (
         <div className="app-divider">
           <div className="current-weather">
             <h2 className="current-temp">
