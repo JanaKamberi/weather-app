@@ -73,6 +73,32 @@ function App() {
   const today = new Date();
   const todayDate = today.getDate();
 
+  // Preprocess forecast data to calculate day labels and weather info
+  const forecastData = dailyWeather?.temperature_2m_max
+    .slice(0, 4)
+    .map((maxTemp, index) => {
+      const forecastDate = new Date(today);
+      forecastDate.setDate(todayDate + index);
+
+      const dayLabel =
+        index === 0
+          ? "Today"
+          : index === 1
+          ? "Tomorrow"
+          : forecastDate.toLocaleDateString("en-US", { weekday: "long" }); // Other days as weekday
+
+      return {
+        dayLabel,
+        maxTemp,
+        minTemp: dailyWeather.temperature_2m_min[index],
+        apparentMin: dailyWeather.apparent_temperature_min[index],
+        apparentMax: dailyWeather.apparent_temperature_max[index],
+        precipitation: dailyWeather.precipitation_sum[index],
+        windSpeed: dailyWeather.windspeed_10m_max[index],
+        weatherCode: dailyWeather.weathercode[index],
+      };
+    });
+
   return (
     <div className="App">
       <h1>Weather App</h1>
@@ -150,48 +176,23 @@ function App() {
           </div>
           <div className="div-forecast">
             <div className="forecast">
-              {dailyWeather.temperature_2m_max
-                .slice(0, 4)
-                .map((maxTemp, index) => {
-                  const forecastDate = new Date(today);
-                  forecastDate.setDate(todayDate + index);
-
-                  const dayLabel =
-                    index === 0
-                      ? "Today"
-                      : index === 1
-                      ? "Tomorrow"
-                      : forecastDate.toLocaleDateString("en-US", {
-                          weekday: "long",
-                        }); // Other days as weekday
-
-                  return (
-                    <div key={index} className="forecast-day">
-                      <h3>{dayLabel}</h3>
-                      <p className="main-weather-info">
-                        {weatherMapping[index]?.icon}{" "}
-                        {weatherMapping[index]?.condition}
-                      </p>
-                      <p>
-                        Temperatures going{" "}
-                        {dailyWeather.temperature_2m_min[index]}°C up to{" "}
-                        {maxTemp}°C
-                      </p>
-                      <p>
-                        Feels like{" "}
-                        {dailyWeather.apparent_temperature_min[index]}°C -{" "}
-                        {dailyWeather.apparent_temperature_max[index]}°C
-                      </p>
-                      <p>
-                        Precipitation {dailyWeather.precipitation_sum[index]} mm
-                      </p>
-                      <p>
-                        Max Wind Speed {dailyWeather.windspeed_10m_max[index]}
-                        km/h
-                      </p>
-                    </div>
-                  );
-                })}
+              {forecastData.map((data, index) => (
+                <div key={index} className="forecast-day">
+                  <h3>{data.dayLabel}</h3>
+                  <p className="main-weather-info">
+                    {weatherMapping[data.weatherCode]?.icon}{" "}
+                    {weatherMapping[data.weatherCode]?.condition}
+                  </p>
+                  <p>
+                    Temperatures going {data.minTemp}°C up to {data.maxTemp}°C
+                  </p>
+                  <p>
+                    Feels like {data.apparentMin}°C - {data.apparentMax}°C
+                  </p>
+                  <p>Precipitation {data.precipitation} mm</p>
+                  <p>Max Wind Speed {data.windSpeed} km/h</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
