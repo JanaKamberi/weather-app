@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+
+import weatherMapping from "./components/weatherMapping.js"; //added new component for maping the icons and weather conditions
+
 import therm from "./images/therm.png";
 import chance from "./images/chance.png";
 import feelslike from "./images/feels_like.png";
@@ -26,68 +29,6 @@ function App() {
   const [newCity, setNewCity] = useState("");
   const [newLat, setNewLat] = useState("");
   const [newLon, setNewLon] = useState("");
-
-  const weatherConditions = {
-    0: "Clear sky",
-    1: "Mainly clear",
-    2: "Partly cloudy",
-    3: "Overcast",
-    45: "Fog",
-    48: "Depositing rime fog",
-    51: "Light Drizzle",
-    53: "Moderate Drizzle",
-    55: "Dense Drizzle",
-    56: "Light Freezing drizzle",
-    57: "Freezing drizzle",
-    61: "Slight Rain",
-    63: "Moderate Rain",
-    65: "Heavy Rain",
-    66: "Light Freezing rain",
-    67: "Heavy Freezing rain",
-    71: "Slight Snow fall",
-    73: "Moderate Snow fall",
-    75: "Heavy Snow fall",
-    77: "Snow grains",
-    80: "Slight Rain showers",
-    81: "Moderate Rain showers",
-    82: "Strong Rain showers",
-    85: "Slight Snow showers",
-    86: "Heavy Snow showers",
-    95: "Moderate Thunderstorm",
-    96: "Thunderstorm with slight hail",
-    99: "Thunderstorm with heavy hail",
-  };
-
-  const iconMapping = {
-    0: "☀️",
-    1: "🌤️",
-    2: "⛅",
-    3: "☁️",
-    45: "🌫️",
-    48: "🌫️",
-    51: "🌦️",
-    53: "🌦️",
-    55: "🌧️",
-    56: "🌨️",
-    57: "🌨️",
-    61: "🌧️",
-    63: "🌧️",
-    65: "🌧️",
-    66: "❄️",
-    67: "❄️",
-    71: "❄️",
-    73: "❄️",
-    75: "❄️",
-    77: "❄️",
-    80: "🌦️",
-    81: "🌧️",
-    82: "🌩️",
-    85: "❄️",
-    86: "❄️",
-    95: "⛈️",
-    96: "⛈️",
-    99: "⛈️",
-  };
 
   useEffect(() => {
     if (!selectedCity) return;
@@ -155,13 +96,13 @@ function App() {
         <div className="app-divider">
           <div className="current-weather">
             <h2 className="current-temp">
-              {iconMapping[currentWeather.weathercode]}{" "}
-              {weatherConditions[currentWeather.weathercode]}
+              {weatherMapping[currentWeather.weathercode]?.icon}{" "}
+              {weatherMapping[currentWeather.weathercode]?.condition}
             </h2>
 
             <div className="current-weather-info">
               <div className="icon-square">
-                <img src={therm} />
+                <img src={therm} alt="thermomertor icon" />
               </div>
               <div>
                 <p className="specific-weather">Temperature</p>
@@ -171,7 +112,7 @@ function App() {
 
             <div className="current-weather-info">
               <div className="icon-square">
-                <img src={windy} />
+                <img src={windy} alt="windy icon" />
               </div>
               <div>
                 <p className="specific-weather">Wind Speed</p>
@@ -181,7 +122,7 @@ function App() {
 
             <div className="current-weather-info">
               <div className="icon-square">
-                <img src={feelslike} />
+                <img src={feelslike} alt="multiple weather conditions" />
               </div>
               <div>
                 <p className="specific-weather"> Feels like</p>
@@ -197,7 +138,7 @@ function App() {
 
             <div className="current-weather-info">
               <div className="icon-square">
-                <img src={chance} />
+                <img src={chance} alt="water percentage" />
               </div>
               <div>
                 <p className="specific-weather"> Precipitation</p>
@@ -228,8 +169,8 @@ function App() {
                     <div key={index} className="forecast-day">
                       <h3>{dayLabel}</h3>
                       <p className="main-weather-info">
-                        {iconMapping[dailyWeather.weathercode[index]]}{" "}
-                        {weatherConditions[dailyWeather.weathercode[index]]}
+                        {weatherMapping[index]?.icon}{" "}
+                        {weatherMapping[index]?.condition}
                       </p>
                       <p>
                         Temperatures going{" "}
