@@ -13,8 +13,9 @@ function App() {
     const [cities, setCities] = useState(initialCities);
     const [selectedCity, setSelectedCity] = useState("");
     const [currentWeather, setCurrentWeather] = useState(null);
+    const [currentWeatherUnits, setCurrentWeatherUnits] = useState(null);
     const [dailyWeather, setDailyWeather] = useState(null);
-    const [weatherUnits, setWeatherUnits] = useState(null);
+    const [dailyWeatherUnits, setdailyWeatherUnits] = useState(null);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [newCity, setNewCity] = useState("");
@@ -34,8 +35,9 @@ function App() {
                 console.log("API Response:", response.data);
 
                 setCurrentWeather(response.data.current);
+                setCurrentWeatherUnits(response.data.current_units);
                 setDailyWeather(response.data.daily);
-                setWeatherUnits(response.data.daily_units);
+                setdailyWeatherUnits(response.data.daily_units);
                 setError("");
             } catch (err) {
                 setError("Unable to fetch weather data. Please try again later.");
@@ -129,8 +131,7 @@ function App() {
                 <div className="app-divider">
                     <div className="current-weather">
                         <h2 className="current-temp">
-                            {weatherMapping[currentWeather.weather_code]?.icon}{" "}
-                            {weatherMapping[currentWeather.weather_code]?.condition}
+                            {weatherMapping[currentWeather.weather_code]?.icon} {weatherMapping[currentWeather.weather_code]?.condition}
                         </h2>
 
                         <div className="current-weather-info">
@@ -139,7 +140,10 @@ function App() {
                             </div>
                             <div>
                                 <p className="specific-weather">Temperature</p>
-                                <p className="API-result">{currentWeather.temperature_2m}°C</p>
+                                <p className="API-result">
+                                    {currentWeather.temperature_2m}
+                                    {currentWeatherUnits.temperature_2m}
+                                </p>
                             </div>
                         </div>
 
@@ -149,7 +153,9 @@ function App() {
                             </div>
                             <div>
                                 <p className="specific-weather">Wind Speed</p>
-                                <p className="API-result">{currentWeather.wind_speed_10m} km/h</p>
+                                <p className="API-result">
+                                    {currentWeather.wind_speed_10m} {currentWeatherUnits.wind_speed_10m}
+                                </p>
                             </div>
                         </div>
 
@@ -160,7 +166,8 @@ function App() {
                             <div>
                                 <p className="specific-weather">Feels like</p>
                                 <p className="API-result">
-                                    {currentWeather.apparent_temperature}°C
+                                    {currentWeather.apparent_temperature}
+                                    {currentWeatherUnits.apparent_temperature}
                                 </p>
                             </div>
                         </div>
@@ -171,7 +178,9 @@ function App() {
                             </div>
                             <div>
                                 <p className="specific-weather">Precipitation</p>
-                                <p className="API-result">{currentWeather.precipitation} mm</p>
+                                <p className="API-result">
+                                    {currentWeather.precipitation} {currentWeatherUnits.precipitation}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -182,16 +191,21 @@ function App() {
                                 <div key={index} className="forecast-day">
                                     <h3>{data.dayLabel}</h3>
                                     <p className="main-weather-info">
-                                        {weatherMapping[data.weatherCode]?.icon}{" "}
-                                        {weatherMapping[data.weatherCode]?.condition || "N/A"}
+                                        {weatherMapping[data.weatherCode]?.icon} {weatherMapping[data.weatherCode]?.condition}
                                     </p>
                                     <p>
-                                        Temperatures {data.minTemp}°C up to {data.maxTemp}°C
+                                        Temperatures {data.minTemp}
+                                        {dailyWeatherUnits.temperature_2m_max} up to {data.maxTemp}
+                                        {dailyWeatherUnits.temperature_2m_max}
                                         <br />
-                                        Will feel {data.apparentMin}°C up to {data.apparentMax}°C
+                                        Will feel {data.apparentMin}
+                                        {dailyWeatherUnits.apparent_temperature_min} up to {data.apparentMax}
+                                        {dailyWeatherUnits.apparent_temperature_max}
                                         <br />
-                                        Rain chance {data.precipitation}% <br />
-                                        Max Wind Speed {data.windSpeed} km/h
+                                        Rain chance {data.precipitation}
+                                        {dailyWeatherUnits.precipitation_probability_max}
+                                        <br />
+                                        Max Wind Speed {data.windSpeed} {dailyWeatherUnits.wind_speed_10m_max}
                                     </p>
                                 </div>
                             ))}
@@ -204,24 +218,9 @@ function App() {
 
             <h3>Add a New City</h3>
             <div>
-                <input
-                    type="text"
-                    placeholder="City name"
-                    value={newCity}
-                    onChange={(e) => setNewCity(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Latitude"
-                    value={newLat}
-                    onChange={(e) => setNewLat(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="Longitude"
-                    value={newLon}
-                    onChange={(e) => setNewLon(e.target.value)}
-                />
+                <input type="text" placeholder="City name" value={newCity} onChange={(e) => setNewCity(e.target.value)} />
+                <input type="text" placeholder="Latitude" value={newLat} onChange={(e) => setNewLat(e.target.value)} />
+                <input type="text" placeholder="Longitude" value={newLon} onChange={(e) => setNewLon(e.target.value)} />
                 <button onClick={handleAddCity}>Add City</button>
                 {error && <p className="error-message">{error}</p>}
             </div>
