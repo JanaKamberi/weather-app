@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+//Added more components
 import weatherMapping from "./components/weatherMapping.js";
 import initialCities from "./components/initialCities.js";
 
@@ -13,9 +14,9 @@ function App() {
     const [cities, setCities] = useState(initialCities);
     const [selectedCity, setSelectedCity] = useState("");
     const [currentWeather, setCurrentWeather] = useState(null);
-    const [currentWeatherUnits, setCurrentWeatherUnits] = useState(null);
+    const [currentWeatherUnits, setCurrentWeatherUnits] = useState(null); //added weather units from the api
     const [dailyWeather, setDailyWeather] = useState(null);
-    const [dailyWeatherUnits, setdailyWeatherUnits] = useState(null);
+    const [dailyWeatherUnits, setdailyWeatherUnits] = useState(null); //and for forecasts
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [newCity, setNewCity] = useState("");
@@ -34,6 +35,7 @@ function App() {
                 const response = await axios.get(apiUrl, { timeout: 10000 });
                 console.log("API Response:", response.data);
 
+                //added responses for the units form the api
                 setCurrentWeather(response.data.current);
                 setCurrentWeatherUnits(response.data.current_units);
                 setDailyWeather(response.data.daily);
@@ -53,6 +55,7 @@ function App() {
         setSelectedCity(e.target.value);
     };
 
+    //added conditions for adding a new city
     const handleAddCity = () => {
         const lat = parseFloat(newLat);
         const lon = parseFloat(newLon);
@@ -78,6 +81,7 @@ function App() {
         setError("");
     };
 
+    //put the date calculation in one place
     const today = new Date();
     const forecastData = dailyWeather?.temperature_2m_max?.map((_, index) => {
         const forecastDate = new Date(today);
@@ -94,13 +98,13 @@ function App() {
 
         return {
             dayLabel,
+            weatherCode: dailyWeather.weather_code?.[index],
             maxTemp: dailyWeather.temperature_2m_max[index],
             minTemp: dailyWeather.temperature_2m_min[index],
             apparentMax: dailyWeather.apparent_temperature_max[index],
             apparentMin: dailyWeather.apparent_temperature_min[index],
             precipitation: dailyWeather.precipitation_probability_max[index],
             windSpeed: dailyWeather.wind_speed_10m_max[index],
-            weatherCode: dailyWeather.weather_code?.[index],
         };
     });
 
@@ -121,7 +125,7 @@ function App() {
                 </h2>
             </div>
 
-            {loading ? (
+            {loading ? ( //added a loading message
                 <div className="loading-screen">
                     <h2>Loading...</h2>
                 </div>
@@ -141,8 +145,7 @@ function App() {
                             <div>
                                 <p className="specific-weather">Temperature</p>
                                 <p className="API-result">
-                                    {currentWeather.temperature_2m}
-                                    {currentWeatherUnits.temperature_2m}
+                                    {currentWeather.temperature_2m} {currentWeatherUnits.temperature_2m}
                                 </p>
                             </div>
                         </div>
@@ -166,8 +169,7 @@ function App() {
                             <div>
                                 <p className="specific-weather">Feels like</p>
                                 <p className="API-result">
-                                    {currentWeather.apparent_temperature}
-                                    {currentWeatherUnits.apparent_temperature}
+                                    {currentWeather.apparent_temperature} {currentWeatherUnits.apparent_temperature}
                                 </p>
                             </div>
                         </div>
