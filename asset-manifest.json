@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/weather-app/static/css/main.86074c2e.css",
-    "main.js": "/weather-app/static/js/main.6ed07a7d.js",
-    "static/js/563.125d7bdc.chunk.js": "/weather-app/static/js/563.125d7bdc.chunk.js",
-    "static/media/windy.png": "/weather-app/static/media/windy.a280777641171bf083fd.png",
-    "static/media/chance.png": "/weather-app/static/media/chance.69e0996f91d8e9680932.png",
-    "index.html": "/weather-app/index.html",
-    "main.86074c2e.css.map": "/weather-app/static/css/main.86074c2e.css.map",
-    "main.6ed07a7d.js.map": "/weather-app/static/js/main.6ed07a7d.js.map",
-    "563.125d7bdc.chunk.js.map": "/weather-app/static/js/563.125d7bdc.chunk.js.map"
+    "main.css": "/react-gh-pages/static/css/main.86074c2e.css",
+    "main.js": "/react-gh-pages/static/js/main.d37d67e2.js",
+    "static/js/563.125d7bdc.chunk.js": "/react-gh-pages/static/js/563.125d7bdc.chunk.js",
+    "static/media/windy.png": "/react-gh-pages/static/media/windy.a280777641171bf083fd.png",
+    "static/media/chance.png": "/react-gh-pages/static/media/chance.69e0996f91d8e9680932.png",
+    "index.html": "/react-gh-pages/index.html",
+    "main.86074c2e.css.map": "/react-gh-pages/static/css/main.86074c2e.css.map",
+    "main.d37d67e2.js.map": "/react-gh-pages/static/js/main.d37d67e2.js.map",
+    "563.125d7bdc.chunk.js.map": "/react-gh-pages/static/js/563.125d7bdc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.86074c2e.css",
-    "static/js/main.6ed07a7d.js"
+    "static/js/main.d37d67e2.js"
   ]
 }
